@@ -1,0 +1,31 @@
+
+[Unit]
+Description=KCSM Local Heartbeat Monitor (Demo)
+
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=notify
+
+# 修改为 Codespaces 实际的 Linux 用户名
+User=codespace
+
+# 项目路径
+WorkingDirectory=/workspaces/lhb-monitor-demo
+ExecStart=/workspaces/lhb-monitor-demo/lhb-monitor-demo
+
+NotifyAccess=main
+
+# Watchdog 超时时间：10秒
+WatchdogSec=10s
+
+# KCSM 异常退出或 Hang 后自动重启
+Restart=on-failure
+RestartSec=2s
+
+TimeoutStartSec=15s
+TimeoutStopSec=8s
+
+[Install]
+WantedBy=multi-user.target
